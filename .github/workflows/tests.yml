@@ -1,0 +1,17 @@
+name: tests
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    container: python:latest
+    services:
+      db:
+        image: postgres:latest
+        env:
+          POSTGRES_PASSWORD: example
+    steps:
+      - uses: actions/checkout@v4
+      - run: python -c "import demo; print(demo.hello())"
